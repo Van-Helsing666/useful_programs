@@ -10,12 +10,16 @@ Finalna wersja notatki
 0D – struktura zerowymiarowa.
 Ruch elektronów jest ograniczony w trzech wymiarach.
 Najprostszy model – quantum box: kropka kwantowa w kształcie sześcianu, na zewnątrz którego potencjał jest nieskończony.
+
 Równanie Schrödingera:
+
 −ℏ22m(∂2∂x2+∂2∂y2+∂2∂z2)ψ(x,y,z)=Eψ(x,y,z)
+
 Energia:
+
 E=ℏ2π22m(nx2Lx2+ny2Ly2+nz2Lz2)
 
-gdzie:
+Gdzie:
 
 m – masa elektronu,
 Lx,Ly,Lz – długości krawędzi sześcianu,
