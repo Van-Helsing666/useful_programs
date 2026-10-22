@@ -42,10 +42,10 @@ $$
 
 Gdzie:
 
-- \(m\) – masa elektronu,
-- \(L_x,L_y,L_z\) – długości krawędzi sześcianu,
-- \(n_x,n_y,n_z=1,2,3,\ldots\) – liczby kwantowe,
-- \(\hbar\) – zredukowana stała Plancka.
+- $m$ – masa elektronu,
+- $L_x,L_y,L_z$ – długości krawędzi sześcianu,
+- $n_x,n_y,n_z=1,2,3,\ldots$ – liczby kwantowe,
+- $\hbar$ – zredukowana stała Plancka.
 
 - Stany energetyczne mogą być zdegenerowane.
 - **Sferyczna kropka kwantowa** – rozdzielenie funkcji falowej \(\psi\) na część radialną i kątową (podobnie jak w zagadnieniu atomu wodoru w mechanice kwantowej).
