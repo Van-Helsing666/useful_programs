@@ -51,15 +51,15 @@ W celu uproszczenia analizy przyjęto następujące założenia:
 
 | Wielkość | Symbol | Jednostka |
 |---|---|---|
-| Położenie poziome | \(x\) | m |
-| Położenie pionowe | \(y\) | m |
-| Czas | \(t\) | s |
-| Prędkość | \(v\) | m/s |
-| Przyspieszenie | \(a\) | m/s² |
-| Przyspieszenie ziemskie | \(g\) | m/s² |
-| Masa | \(m\) | kg |
-| Siła | \(F\) | N |
-| Kąt wyrzutu | \(\alpha\) | rad lub ° |
+| Położenie poziome | x | m |
+| Położenie pionowe | y | m |
+| Czas | t | s |
+| Prędkość | v | m/s |
+| Przyspieszenie | a | m/s² |
+| Przyspieszenie ziemskie | g | m/s² |
+| Masa | m | kg |
+| Siła | F | N |
+| Kąt wyrzutu | α | rad lub ° |
 
 ## 3. Rzut ukośny bez oporu powietrza
 
@@ -349,13 +349,13 @@ Do przeprowadzenia symulacji przyjęto następujące wartości:
 
 | Parametr | Symbol | Wartość | Jednostka |
 |---|---|---:|---|
-| Masa ciała | \(m\) | 0,20 | kg |
-| Gęstość powietrza | \(\rho\) | 1,225 | kg/m³ |
-| Współczynnik oporu | \(C_d\) | 0,47 | - |
-| Powierzchnia przekroju | \(A\) | 0,01 | m² |
-| Prędkość początkowa | \(v_0\) | 20 | m/s |
-| Kąt wyrzutu | \(\alpha\) | 45 | ° |
-| Przyspieszenie ziemskie | \(g\) | 9,81 | m/s² |
+| Masa ciała | m | 0,20 | kg |
+| Gęstość powietrza | ρ | 1,225 | kg/m³ |
+| Współczynnik oporu | C<sub>d</sub> | 0,47 | - |
+| Powierzchnia przekroju | A | 0,01 | m² |
+| Prędkość początkowa | v₀ | 20 | m/s |
+| Kąt wyrzutu | α | 45 | ° |
+| Przyspieszenie ziemskie | g | 9,81 | m/s² |
 
 Przyjęte parametry odpowiadają uproszczonemu modelowi niewielkiego kulistego ciała poruszającego się w powietrzu.
 
