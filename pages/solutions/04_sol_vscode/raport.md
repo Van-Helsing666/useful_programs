@@ -412,19 +412,6 @@ y(t)\leq 0
 $$
 
 Dzięki temu możliwe będzie wyznaczenie toru ruchu, czasu lotu oraz zasięgu rzutu z uwzględnieniem oporu powietrza.
-
-## 5. Wyniki symulacji komputerowej
-
-Na podstawie przeprowadzonej symulacji numerycznej otrzymano wyniki przedstawiające ruch ciała w dwóch różnych modelach fizycznych.
-
-### 5.1. Porównanie wyników
-
-| Wielkość fizyczna | Bez oporu powietrza | Z oporem powietrza |
-|---|---:|---:|
-| Czas lotu [s] | 2,88 | 2,60 |
-| Zasięg [m] | 40,77 | 28,60 |
-| Maksymalna wysokość [m] | 10,19 | 8,31 |
-
 ### 5.2. Analiza toru ruchu
 
 ![Porównanie torów ruchu](wykresy/tor_ruchu.png)
