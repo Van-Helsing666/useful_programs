@@ -250,3 +250,165 @@ Ostatecznie:
 $$
 \boxed{R\approx40{,}77\ \text{m}}
 $$
+## 4. Rzut ukośny z oporem powietrza
+
+W rzeczywistych warunkach ruch ciała odbywa się w ośrodku materialnym, takim jak powietrze. Powoduje to występowanie dodatkowej siły oporu, która działa przeciwnie do kierunku prędkości ciała.
+
+W niniejszym raporcie przyjęto model oporu proporcjonalnego do kwadratu wartości prędkości.
+
+### 4.1. Siła oporu powietrza
+
+Siłę oporu aerodynamicznego opisuje wzór:
+
+$$
+F_o=\frac{1}{2}\rho C_d A v^2
+$$
+
+gdzie:
+
+- \(\rho\) – gęstość powietrza \([\text{kg/m}^3]\),
+- \(C_d\) – współczynnik oporu aerodynamicznego,
+- \(A\) – powierzchnia przekroju poprzecznego ciała \([\text{m}^2]\),
+- \(v\) – wartość prędkości ciała \([\text{m/s}]\).
+
+Siła oporu jest skierowana przeciwnie do wektora prędkości. Jej zapis wektorowy ma postać:
+
+$$
+\vec{F}_o=-\frac{1}{2}\rho C_d A v\vec{v}
+$$
+
+Wprowadzając pomocnicze oznaczenie:
+
+$$
+k=\frac{1}{2}\rho C_d A
+$$
+
+otrzymujemy uproszczony zapis:
+
+$$
+\vec{F}_o=-kv\vec{v}
+$$
+
+### 4.2. Równania ruchu z oporem powietrza
+
+Zgodnie z drugą zasadą dynamiki Newtona na ciało działa suma siły ciężkości oraz siły oporu powietrza:
+
+$$
+m\vec{a}=\vec{F}_g+\vec{F}_o
+$$
+
+Rozpatrując osobno obie osie współrzędnych, otrzymujemy:
+
+$$
+m\frac{dv_x}{dt}=-kvv_x
+$$
+
+$$
+m\frac{dv_y}{dt}=-mg-kvv_y
+$$
+
+Dzieląc równania przez masę ciała:
+
+$$
+\frac{dv_x}{dt}=-\frac{k}{m}vv_x
+$$
+
+$$
+\frac{dv_y}{dt}=-g-\frac{k}{m}vv_y
+$$
+
+Wartość prędkości wypadkowej wyznaczamy z twierdzenia Pitagorasa:
+
+$$
+v=\sqrt{v_x^2+v_y^2}
+$$
+
+Otrzymujemy układ czterech równań różniczkowych opisujących cały ruch:
+
+$$
+\frac{dx}{dt}=v_x
+$$
+
+$$
+\frac{dy}{dt}=v_y
+$$
+
+$$
+\frac{dv_x}{dt}=-\frac{k}{m}\sqrt{v_x^2+v_y^2}\,v_x
+$$
+
+$$
+\frac{dv_y}{dt}=-g-\frac{k}{m}\sqrt{v_x^2+v_y^2}\,v_y
+$$
+
+W przeciwieństwie do modelu bez oporu powietrza, powyższe równania są nieliniowe. Oznacza to, że nie można bezpośrednio zastosować prostych wzorów na czas lotu i zasięg.
+
+### 4.3. Parametry symulacji
+
+Do przeprowadzenia symulacji przyjęto następujące wartości:
+
+| Parametr | Symbol | Wartość | Jednostka |
+|---|---|---:|---|
+| Masa ciała | \(m\) | 0,20 | kg |
+| Gęstość powietrza | \(\rho\) | 1,225 | kg/m³ |
+| Współczynnik oporu | \(C_d\) | 0,47 | - |
+| Powierzchnia przekroju | \(A\) | 0,01 | m² |
+| Prędkość początkowa | \(v_0\) | 20 | m/s |
+| Kąt wyrzutu | \(\alpha\) | 45 | ° |
+| Przyspieszenie ziemskie | \(g\) | 9,81 | m/s² |
+
+Przyjęte parametry odpowiadają uproszczonemu modelowi niewielkiego kulistego ciała poruszającego się w powietrzu.
+
+Wartość współczynnika oporu jest przybliżona i w rzeczywistości może zależeć od kształtu ciała oraz warunków przepływu powietrza.
+
+### 4.4. Warunki początkowe
+
+Na początku symulacji ciało znajduje się w punkcie początkowym układu współrzędnych:
+
+$$
+x(0)=0
+$$
+
+$$
+y(0)=0
+$$
+
+Początkowe składowe prędkości wynoszą:
+
+$$
+v_x(0)=v_0\cos\alpha
+$$
+
+$$
+v_y(0)=v_0\sin\alpha
+$$
+
+Dla przyjętych parametrów:
+
+$$
+v_x(0)\approx14{,}14\ \text{m/s}
+$$
+
+$$
+v_y(0)\approx14{,}14\ \text{m/s}
+$$
+
+### 4.5. Metoda rozwiązania numerycznego
+
+Ze względu na nieliniowy charakter równań różniczkowych zastosowana zostanie metoda numeryczna. W symulacji wykorzystany będzie algorytm Rungego-Kutty czwartego rzędu (RK4).
+
+Metoda ta pozwala przybliżać rozwiązania układów równań różniczkowych poprzez obliczanie kolejnych wartości funkcji w niewielkich odstępach czasu.
+
+W symulacji przyjęty zostanie krok czasowy:
+
+$$
+\Delta t=0{,}01\ \text{s}
+$$
+
+Obliczenia będą wykonywane aż do momentu zetknięcia ciała z podłożem, czyli osiągnięcia warunku:
+
+$$
+y(t)\leq 0
+$$
+
+Dzięki temu możliwe będzie wyznaczenie toru ruchu, czasu lotu oraz zasięgu rzutu z uwzględnieniem oporu powietrza.
