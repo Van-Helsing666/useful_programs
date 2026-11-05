@@ -412,3 +412,41 @@ y(t)\leq 0
 $$
 
 Dzięki temu możliwe będzie wyznaczenie toru ruchu, czasu lotu oraz zasięgu rzutu z uwzględnieniem oporu powietrza.
+
+## 5. Wyniki symulacji komputerowej
+
+Na podstawie przeprowadzonej symulacji numerycznej otrzymano wyniki przedstawiające ruch ciała w dwóch różnych modelach fizycznych.
+
+### 5.1. Porównanie wyników
+
+| Wielkość fizyczna | Bez oporu powietrza | Z oporem powietrza |
+|---|---:|---:|
+| Czas lotu [s] | 2,88 | 2,60 |
+| Zasięg [m] | 40,77 | 28,60 |
+| Maksymalna wysokość [m] | 10,19 | 8,31 |
+
+### 5.2. Analiza toru ruchu
+
+![Porównanie torów ruchu](wykresy/tor_ruchu.png)
+
+Wykres przedstawia porównanie trajektorii ciała w przypadku pominięcia oporu powietrza oraz przy jego uwzględnieniu.
+
+W modelu idealnym tor ruchu ma kształt paraboli. W przypadku uwzględnienia oporu powietrza zasięg oraz maksymalna wysokość są mniejsze.
+
+### 5.3. Zależność wysokości od czasu
+
+![Wysokość w funkcji czasu](wykresy/wysokosc_czas.png)
+
+Wykres przedstawia zmianę wysokości ciała w czasie. W obu przypadkach ciało początkowo wznosi się, osiąga maksymalną wysokość, a następnie opada.
+
+Uwzględnienie oporu powietrza powoduje zmniejszenie maksymalnej wysokości oraz zmianę czasu trwania poszczególnych etapów ruchu.
+
+### 5.4. Zależność prędkości od czasu
+
+![Składowe prędkości w czasie](wykresy/predkosc_czas.png)
+
+Wykres przedstawia zmiany poziomej i pionowej składowej prędkości.
+
+Bez oporu powietrza składowa pozioma prędkości pozostaje stała, natomiast składowa pionowa zmienia się liniowo pod wpływem przyspieszenia ziemskiego.
+
+W przypadku uwzględnienia oporu powietrza obie składowe prędkości ulegają zmianom, ponieważ siła oporu działa przeciwnie do kierunku ruchu.
