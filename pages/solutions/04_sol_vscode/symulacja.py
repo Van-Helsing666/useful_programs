@@ -25,7 +25,7 @@ vx0 = v0 * math.cos(alpha_rad)
 vy0 = v0 * math.sin(alpha_rad)
 
 # Folder na wykresy
-output_dir = Path(__file__).resolve().parent / "wykresy"
+output_dir = Path("wykresy")
 output_dir.mkdir(exist_ok=True)
 
 

@@ -3,9 +3,9 @@
 **Przedmiot:** Programy Użytkowe  
 **Temat:** Rzut ukośny – analiza teoretyczna i numeryczna  
 **Parametry początkowe:**
-- Prędkość początkowa: $v_0 = 36\ \mathrm{m/s}$
+- Prędkość początkowa: $v_0 = 36\,\mathrm{m/s}$
 - Kąt wyrzutu: $\alpha = 83^\circ$
-- Przyspieszenie ziemskie: $g = 9{,}81\ \mathrm{m/s^2}$
+- Przyspieszenie ziemskie: $g = 9{,}81\,\mathrm{m/s^2}$
 
 ---
 
@@ -41,9 +41,9 @@ W celu uproszczenia analizy przyjęto następujące założenia:
 
 1. Ciało traktowane jest jako punkt materialny.
 2. Ruch odbywa się w jednorodnym polu grawitacyjnym Ziemi.
-3. Przyspieszenie ziemskie jest stałe i wynosi $9{,}81\ \mathrm{m/s^2}$.
+3. Przyspieszenie ziemskie jest stałe i wynosi $9{,}81\,\mathrm{m/s^2}$.
 4. Początkowa wysokość wyrzutu wynosi zero.
-5. Prędkość początkowa wynosi $36\ \mathrm{m/s}$.
+5. Prędkość początkowa wynosi $36\,\mathrm{m/s}$.
 6. Kąt wyrzutu wynosi $83^\circ$.
 7. W modelu z oporem powietrza przyjęto opór proporcjonalny do kwadratu prędkości.
 
@@ -104,7 +104,7 @@ v_{0x}=36\cos83^\circ
 $$
 
 $$
-v_{0x}\approx4{,}39\ \mathrm{m/s}
+v_{0x}\approx4{,}39\,\mathrm{m/s}
 $$
 
 Analogicznie:
@@ -114,7 +114,7 @@ v_{0y}=36\sin83^\circ
 $$
 
 $$
-v_{0y}\approx35{,}73\ \mathrm{m/s}
+v_{0y}\approx35{,}73\,\mathrm{m/s}
 $$
 
 ### 3.2. Równania prędkości
@@ -178,7 +178,7 @@ $$
 Ostatecznie:
 
 $$
-t_w\approx3{,}64\ \mathrm{s}
+t_w\approx3{,}64\,\mathrm{s}
 $$
 
 ### 3.5. Maksymalna wysokość
@@ -204,7 +204,7 @@ $$
 Ostatecznie:
 
 $$
-H_{\max}\approx65{,}07\ \mathrm{m}
+H_{\max}\approx65{,}07\,\mathrm{m}
 $$
 
 ### 3.6. Całkowity czas lotu
@@ -222,7 +222,7 @@ $$
 Ostatecznie:
 
 $$
-T\approx7{,}28\ \mathrm{s}
+T\approx7{,}28\,\mathrm{s}
 $$
 
 ### 3.7. Zasięg rzutu
@@ -248,7 +248,7 @@ $$
 Ostatecznie:
 
 $$
-R\approx31{,}96\ \mathrm{m}
+R\approx31{,}96\,\mathrm{m}
 $$
 
 ## 4. Rzut ukośny z oporem powietrza
@@ -387,11 +387,11 @@ $$
 Dla przyjętych parametrów:
 
 $$
-v_x(0)\approx4{,}39\ \mathrm{m/s}
+v_x(0)\approx4{,}39\,\mathrm{m/s}
 $$
 
 $$
-v_y(0)\approx35{,}73\ \mathrm{m/s}
+v_y(0)\approx35{,}73\,\mathrm{m/s}
 $$
 
 ### 4.5. Metoda rozwiązania numerycznego
@@ -403,7 +403,7 @@ Metoda ta pozwala przybliżać rozwiązania układów równań różniczkowych p
 W symulacji przyjęty zostanie krok czasowy:
 
 $$
-\Delta t=0{,}01\ \mathrm{s}
+\Delta t=0{,}01\,\mathrm{s}
 $$
 
 Obliczenia będą wykonywane aż do momentu zetknięcia ciała z podłożem, czyli osiągnięcia warunku:
@@ -425,6 +425,7 @@ import matplotlib.pyplot as plt
 v0 = 36.0
 alpha = 83.0
 g = 9.81
+
 m = 0.20
 rho = 1.225
 Cd = 0.47
@@ -435,6 +436,40 @@ alpha_rad = math.radians(alpha)
 k = 0.5 * rho * Cd * A
 vx0 = v0 * math.cos(alpha_rad)
 vy0 = v0 * math.sin(alpha_rad)
+
+output_dir = Path("wykresy")
+output_dir.mkdir(exist_ok=True)
+
+def simulate_without_drag():
+    times = [0.0]
+    xs = [0.0]
+    ys = [0.0]
+    vxs = [vx0]
+    vys = [vy0]
+    t = 0.0
+
+    while True:
+        next_t = t + dt
+        next_y = vy0 * next_t - 0.5 * g * next_t**2
+
+        if next_y <= 0:
+            fraction = ys[-1] / (ys[-1] - next_y)
+            landing_t = t + fraction * dt
+            times.append(landing_t)
+            xs.append(vx0 * landing_t)
+            ys.append(0.0)
+            vxs.append(vx0)
+            vys.append(vy0 - g * landing_t)
+            break
+
+        t = next_t
+        times.append(t)
+        xs.append(vx0 * t)
+        ys.append(next_y)
+        vxs.append(vx0)
+        vys.append(vy0 - g * t)
+
+    return times, xs, ys, vxs, vys
 
 def derivatives(state):
     x, y, vx, vy = state
@@ -452,81 +487,90 @@ def rk4_step(state, dt):
     s4 = [state[i] + dt * k3[i] for i in range(4)]
     k4 = derivatives(s4)
     return [
-        state[i] + (dt / 6) * (
-            k1[i] + 2*k2[i] + 2*k3[i] + k4[i]
-        )
+        state[i] + (dt / 6)
+        * (k1[i] + 2*k2[i] + 2*k3[i] + k4[i])
         for i in range(4)
     ]
 
-times1, x1, y1, vx1, vy1 = [0.0], [0.0], [0.0], [vx0], [vy0]
-t = 0.0
-while y1[-1] >= 0:
-    t += dt
-    x = vx0 * t
-    y = vy0 * t - 0.5 * g * t**2
-    times1.append(t)
-    x1.append(x)
-    y1.append(y)
-    vx1.append(vx0)
-    vy1.append(vy0 - g * t)
+def simulate_with_drag():
+    t = 0.0
+    state = [0.0, 0.0, vx0, vy0]
+    times = [t]
+    xs = [0.0]
+    ys = [0.0]
+    vxs = [vx0]
+    vys = [vy0]
 
-state = [0.0, 0.0, vx0, vy0]
-times2, x2, y2, vx2, vy2 = [0.0], [0.0], [0.0], [vx0], [vy0]
-t = 0.0
-while state[1] >= 0:
-    state = rk4_step(state, dt)
-    t += dt
-    times2.append(t)
-    x2.append(state[0])
-    y2.append(state[1])
-    vx2.append(state[2])
-    vy2.append(state[3])
+    while True:
+        next_state = rk4_step(state, dt)
 
-output_dir = Path("wykresy")
-output_dir.mkdir(exist_ok=True)
+        if next_state[1] <= 0:
+            fraction = state[1] / (state[1] - next_state[1])
+            landing_state = [
+                state[i] + fraction * (next_state[i] - state[i])
+                for i in range(4)
+            ]
+            t += fraction * dt
+            times.append(t)
+            xs.append(landing_state[0])
+            ys.append(0.0)
+            vxs.append(landing_state[2])
+            vys.append(landing_state[3])
+            break
+
+        state = next_state
+        t += dt
+        times.append(t)
+        xs.append(state[0])
+        ys.append(state[1])
+        vxs.append(state[2])
+        vys.append(state[3])
+
+    return times, xs, ys, vxs, vys
+
+t1, x1, y1, vx1, vy1 = simulate_without_drag()
+t2, x2, y2, vx2, vy2 = simulate_with_drag()
 
 plt.figure(figsize=(9, 6))
 plt.plot(x1, y1, label="Bez oporu powietrza")
 plt.plot(x2, y2, label="Z oporem powietrza")
+plt.title("Porownanie torow ruchu")
 plt.xlabel("Odleglosc pozioma x [m]")
 plt.ylabel("Wysokosc y [m]")
-plt.title("Porownanie torow ruchu")
 plt.legend()
 plt.grid()
 plt.savefig(output_dir / "tor_ruchu.png", dpi=300)
 plt.close()
 
 plt.figure(figsize=(9, 6))
-plt.plot(times1, y1, label="Bez oporu")
-plt.plot(times2, y2, label="Z oporem")
+plt.plot(t1, y1, label="Bez oporu")
+plt.plot(t2, y2, label="Z oporem")
+plt.title("Wysokosc ciala w czasie")
 plt.xlabel("Czas t [s]")
 plt.ylabel("Wysokosc y [m]")
-plt.title("Wysokosc ciala w czasie")
 plt.legend()
 plt.grid()
 plt.savefig(output_dir / "wysokosc_czas.png", dpi=300)
 plt.close()
 
 plt.figure(figsize=(9, 6))
-plt.plot(times1, vx1, label="vx bez oporu")
-plt.plot(times1, vy1, label="vy bez oporu")
-plt.plot(times2, vx2, "--", label="vx z oporem")
-plt.plot(times2, vy2, "--", label="vy z oporem")
+plt.plot(t1, vx1, label="vx bez oporu")
+plt.plot(t1, vy1, label="vy bez oporu")
+plt.plot(t2, vx2, "--", label="vx z oporem")
+plt.plot(t2, vy2, "--", label="vy z oporem")
+plt.title("Skladowe predkosci w czasie")
 plt.xlabel("Czas t [s]")
 plt.ylabel("Predkosc [m/s]")
-plt.title("Skladowe predkosci w czasie")
 plt.legend()
 plt.grid()
 plt.savefig(output_dir / "predkosc_czas.png", dpi=300)
 plt.close()
 
-print("Bez oporu: czas =", times1[-1], "s, zasieg =", x1[-1],
-      "m, maks. wysokosc =", max(y1), "m")
-print("Z oporem: czas =", times2[-1], "s, zasieg =", x2[-1],
-      "m, maks. wysokosc =", max(y2), "m")
+print("Wyniki bez oporu:", t1[-1], x1[-1], max(y1))
+print("Wyniki z oporem:", t2[-1], x2[-1], max(y2))
 ```
 
-Pełna implementacja symulacji, w tym wykres składowych prędkości i wyniki tekstowe, znajduje się w pliku [symulacja.py](./symulacja.py).
+Pełna implementacja symulacji znajduje się w pliku [symulacja.py](./symulacja.py).
 
 ## 5. Wyniki symulacji
 
