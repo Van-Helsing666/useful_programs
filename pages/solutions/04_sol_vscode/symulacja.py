@@ -7,8 +7,8 @@ from pathlib import Path
 # 1. PARAMETRY FIZYCZNE
 # ==========================================
 
-v0 = 20.0          # Predkosc poczatkowa [m/s]
-alpha = 45.0       # Kat wyrzutu [stopnie]
+v0 = 36.0          # Predkosc poczatkowa [m/s]
+alpha = 83.0       # Kat wyrzutu [stopnie]
 g = 9.81           # Przyspieszenie ziemskie [m/s^2]
 
 m = 0.20           # Masa ciala [kg]

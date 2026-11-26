@@ -3,8 +3,8 @@
 **Przedmiot:** Programy Użytkowe  
 **Temat:** Rzut ukośny – analiza teoretyczna i numeryczna  
 **Parametry początkowe:**
-- Prędkość początkowa: \(v_0 = 20\ \text{m/s}\)
-- Kąt wyrzutu: \(\alpha = 45^\circ\)
+- Prędkość początkowa: \(v_0 = 36\ \text{m/s}\)
+- Kąt wyrzutu: \(\alpha = 83^\circ\)
 - Przyspieszenie ziemskie: \(g = 9{,}81\ \text{m/s}^2\)
 
 ---
@@ -43,8 +43,8 @@ W celu uproszczenia analizy przyjęto następujące założenia:
 2. Ruch odbywa się w jednorodnym polu grawitacyjnym Ziemi.
 3. Przyspieszenie ziemskie jest stałe i wynosi \(9{,}81\ \text{m/s}^2\).
 4. Początkowa wysokość wyrzutu wynosi zero.
-5. Prędkość początkowa wynosi \(20\ \text{m/s}\).
-6. Kąt wyrzutu wynosi \(45^\circ\).
+5. Prędkość początkowa wynosi \(36\ \text{m/s}\).
+6. Kąt wyrzutu wynosi \(83^\circ\).
 7. W modelu z oporem powietrza przyjęto opór proporcjonalny do kwadratu prędkości.
 
 ### 2.1. Wielkości fizyczne i jednostki SI
@@ -100,21 +100,21 @@ $$
 Dla przyjętych parametrów:
 
 $$
-v_{0x}=20\cos45^\circ
+v_{0x}=36\cos83^\circ
 $$
 
 $$
-v_{0x}\approx14{,}14\ \text{m/s}
+v_{0x}\approx4{,}39\ \text{m/s}
 $$
 
 Analogicznie:
 
 $$
-v_{0y}=20\sin45^\circ
+v_{0y}=36\sin83^\circ
 $$
 
 $$
-v_{0y}\approx14{,}14\ \text{m/s}
+v_{0y}\approx35{,}73\ \text{m/s}
 $$
 
 ### 3.2. Równania prędkości
@@ -172,13 +172,13 @@ $$
 Podstawiając dane:
 
 $$
-t_w=\frac{20\sin45^\circ}{9{,}81}
+t_w=\frac{36\sin83^\circ}{9{,}81}
 $$
 
 Ostatecznie:
 
 $$
-\boxed{t_w\approx1{,}44\ \text{s}}
+\boxed{t_w\approx3{,}64\ \text{s}}
 $$
 
 ### 3.5. Maksymalna wysokość
@@ -198,13 +198,13 @@ $$
 Dla analizowanego przypadku:
 
 $$
-H_{\max}=\frac{20^2\sin^245^\circ}{2\cdot9{,}81}
+H_{\max}=\frac{36^2\sin^283^\circ}{2\cdot9{,}81}
 $$
 
 Ostatecznie:
 
 $$
-\boxed{H_{\max}\approx10{,}19\ \text{m}}
+\boxed{H_{\max}\approx65{,}07\ \text{m}}
 $$
 
 ### 3.6. Całkowity czas lotu
@@ -222,7 +222,7 @@ $$
 Ostatecznie:
 
 $$
-\boxed{T\approx2{,}88\ \text{s}}
+\boxed{T\approx7{,}28\ \text{s}}
 $$
 
 ### 3.7. Zasięg rzutu
@@ -242,13 +242,13 @@ $$
 Dla przyjętych parametrów:
 
 $$
-R=\frac{20^2\sin90^\circ}{9{,}81}
+R=\frac{36^2\sin166^\circ}{9{,}81}
 $$
 
 Ostatecznie:
 
 $$
-\boxed{R\approx40{,}77\ \text{m}}
+\boxed{R\approx31{,}96\ \text{m}}
 $$
 ## 4. Rzut ukośny z oporem powietrza
 
@@ -353,8 +353,8 @@ Do przeprowadzenia symulacji przyjęto następujące wartości:
 | Gęstość powietrza | ρ | 1,225 | kg/m³ |
 | Współczynnik oporu | C<sub>d</sub> | 0,47 | - |
 | Powierzchnia przekroju | A | 0,01 | m² |
-| Prędkość początkowa | v₀ | 20 | m/s |
-| Kąt wyrzutu | α | 45 | ° |
+| Prędkość początkowa | v₀ | 36 | m/s |
+| Kąt wyrzutu | α | 83 | ° |
 | Przyspieszenie ziemskie | g | 9,81 | m/s² |
 
 Przyjęte parametry odpowiadają uproszczonemu modelowi niewielkiego kulistego ciała poruszającego się w powietrzu.
@@ -386,11 +386,11 @@ $$
 Dla przyjętych parametrów:
 
 $$
-v_x(0)\approx14{,}14\ \text{m/s}
+v_x(0)\approx4{,}39\ \text{m/s}
 $$
 
 $$
-v_y(0)\approx14{,}14\ \text{m/s}
+v_y(0)\approx35{,}73\ \text{m/s}
 $$
 
 ### 4.5. Metoda rozwiązania numerycznego
@@ -412,6 +412,40 @@ y(t)\leq 0
 $$
 
 Dzięki temu możliwe będzie wyznaczenie toru ruchu, czasu lotu oraz zasięgu rzutu z uwzględnieniem oporu powietrza.
+
+Poniższy fragment przedstawia implementację pojedynczego kroku metody RK4. Funkcja `derivatives(state)` oblicza pochodne zgodnie z układem równań z oporem powietrza opisanym wyżej.
+
+```python
+def rk4_step(state, dt):
+    k1 = derivatives(state)
+
+    s2 = [
+        state[i] + 0.5 * dt * k1[i]
+        for i in range(4)
+    ]
+    k2 = derivatives(s2)
+
+    s3 = [
+        state[i] + 0.5 * dt * k2[i]
+        for i in range(4)
+    ]
+    k3 = derivatives(s3)
+
+    s4 = [
+        state[i] + dt * k3[i]
+        for i in range(4)
+    ]
+    k4 = derivatives(s4)
+
+    return [
+        state[i] + (dt / 6) *
+        (k1[i] + 2*k2[i] + 2*k3[i] + k4[i])
+        for i in range(4)
+    ]
+```
+
+Pełna implementacja symulacji i generowania wykresów znajduje się w pliku [symulacja.py](./symulacja.py).
+
 ### 5.2. Analiza toru ruchu
 
 ![Porównanie torów ruchu](wykresy/tor_ruchu.png)

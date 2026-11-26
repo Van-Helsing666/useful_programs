@@ -48,6 +48,6 @@ Gdzie:
 - $\hbar$ – zredukowana stała Plancka.
 
 - Stany energetyczne mogą być zdegenerowane.
-- **Sferyczna kropka kwantowa** – rozdzielenie funkcji falowej \(\psi\) na część radialną i kątową (podobnie jak w zagadnieniu atomu wodoru w mechanice kwantowej).
+- **Sferyczna kropka kwantowa** – rozdzielenie funkcji falowej $\psi$ na część radialną i kątową (podobnie jak w zagadnieniu atomu wodoru w mechanice kwantowej).
 
-Rozwiązanie równania radialnego prowadzi do funkcji Bessela. Dla problemu sferycznie symetrycznego stosuje się sferyczne funkcje Bessela \(j_l(kr)\), które można wyrazić za pomocą funkcji Bessela rzędu \(l+\frac{1}{2}\).
+Rozwiązanie równania radialnego prowadzi do funkcji Bessela. Dla problemu sferycznie symetrycznego stosuje się sferyczne funkcje Bessela $j_l(kr)$, które można wyrazić za pomocą funkcji Bessela rzędu $l+\frac{1}{2}$.
